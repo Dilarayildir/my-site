@@ -2,6 +2,7 @@ from django.shortcuts import redirect,render
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 
+
 def login_request(request):
     if request.user.is_authenticated:
         return redirect("home")
@@ -18,7 +19,7 @@ def login_request(request):
         
         else:
             return render(request,"account/login.html",{
-                "error": "username or password is wrong" 
+                "error": "Kullanıcı adı ya da parola hatalı!" 
             })    
                
     return render(request, "account/login.html")
@@ -38,7 +39,7 @@ def register_request(request):
        if password == repassword:
            if User.objects.filter(username=username).exists():
                return render(request, "account/register.html",
-                {   "error":"username kullanılıyor.",
+                {   "error":"Kullanıcı adı kullanılıyor!",
                     "username":username,
                     "email":email,
                     "firstname":firstname,
@@ -48,7 +49,7 @@ def register_request(request):
            else:
                if User.objects.filter(email=email).exists():
                    return render(request,"account/register.html",
-                    {   "error":"email kullanılıyor",
+                    {   "error":"E-posta adresi kullanılıyor!",
                         "username":username,
                         "email":email,
                         "firstname":firstname,
@@ -61,7 +62,7 @@ def register_request(request):
                    return redirect("login")
        else:       
            return render(request,"account/register.html",
-                    {   "error":"parola eşleşmiyor.",
+                    {   "error":"Parola eşleşmiyor!",
                         "username":username,
                         "email":email,
                         "firstname":firstname,

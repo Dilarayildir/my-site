@@ -16,7 +16,6 @@
             {% include 'partials/_categories.html'%}
         </div>
         <div class="col-9">
-            <h1>Home-Page</h1>
             <hr>
             {% for blog in blogs %}
                 {% if blog.is_home and blog.is_active %}
