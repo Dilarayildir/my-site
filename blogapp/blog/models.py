@@ -31,4 +31,6 @@ class Blog(models.Model):
         super().save(*args, **kwargs)
 
 
+class Movies(models.Model):
+   file = models.FileField()
 

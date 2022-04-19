@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http.response import HttpResponse
-from blog.models import Blog, Category
+from blog.models import Blog, Category, Movies
+from django.core.files.storage import FileSystemStorage
+from .forms import MovieForm
+
 
 
 
@@ -36,3 +39,13 @@ def blogs_by_category(request, slug):
         "selected_category": slug
     }
     return render(request, "blog/blogs.html", context)
+
+def upload(request):
+	if request.method == "POST":
+		form = MovieForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+		return redirect("upload")
+	form = MovieForm()
+	movies = Movies.objects.all()
+	return render(request=request, template_name="blog/upload.html", context={'form':form, 'movies':movies})
